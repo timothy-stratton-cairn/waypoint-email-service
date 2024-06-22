@@ -6,6 +6,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ses.SesClient;
 
 public class SESConfiguration {
+
   public static SesClient getClient() {
     Region region = Region.US_EAST_1;
     return SesClient.builder()

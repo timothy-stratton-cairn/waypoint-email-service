@@ -4,6 +4,7 @@ import com.cairnfg.waypoint.emailservice.enumeration.MailRequestEnum;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class PasswordResetMailService extends BaseMailService {
+
   private final String SUBJECT = "Forgot Password";
   private final String HTML_BODY = """
       <html>

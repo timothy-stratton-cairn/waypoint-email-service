@@ -14,20 +14,18 @@ import software.amazon.awssdk.services.ses.model.SesException;
 
 public abstract class BaseMailService implements IMailService {
 
-  protected static LambdaLogger logger;
-
-  private final MailRequestEnum consumesRequestType;
   protected static final SesClient sesClient = SESConfiguration.getClient();
   protected static final String sender = "tim@cairnfg.com";
+  protected static LambdaLogger logger;
+  private final MailRequestEnum consumesRequestType;
+  private IMailService next;
 
   public BaseMailService(final MailRequestEnum consumesRequestType) {
     this.consumesRequestType = consumesRequestType;
   }
 
-  private IMailService next;
-
-
-  public static BaseMailService setupProcessorMailChain(BaseMailService firstLink, BaseMailService... chain) {
+  public static BaseMailService setupProcessorMailChain(BaseMailService firstLink,
+      BaseMailService... chain) {
     BaseMailService head = firstLink;
 
     for (BaseMailService next : chain) {
@@ -82,7 +80,8 @@ public abstract class BaseMailService implements IMailService {
         .build();
 
     try {
-      System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
+      System.out.println(
+          "Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
       sesClient.sendEmail(emailRequest);
 
     } catch (SesException e) {

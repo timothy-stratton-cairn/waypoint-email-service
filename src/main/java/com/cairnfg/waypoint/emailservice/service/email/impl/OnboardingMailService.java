@@ -1,10 +1,10 @@
 package com.cairnfg.waypoint.emailservice.service.email.impl;
 
-import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.cairnfg.waypoint.emailservice.enumeration.MailRequestEnum;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class OnboardingMailService extends BaseMailService {
+
   private final String SUBJECT = "Welcome to Waypoints";
   private final String HTML_BODY = """
       <html>

@@ -9,13 +9,14 @@ import com.amazonaws.services.lambda.runtime.logging.LogLevel;
 import com.cairnfg.waypoint.emailservice.enumeration.MailRequestEnum;
 import com.cairnfg.waypoint.emailservice.service.email.IMailService;
 import com.cairnfg.waypoint.emailservice.service.email.impl.BaseMailService;
+import com.cairnfg.waypoint.emailservice.service.email.impl.DBBackupMailService;
 import com.cairnfg.waypoint.emailservice.service.email.impl.OnboardingMailService;
 import com.cairnfg.waypoint.emailservice.service.email.impl.PasswordResetMailService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SuppressWarnings("unused")
-public class HandlerWaypointEmailService implements RequestHandler<SQSEvent, Void>{
+public class HandlerWaypointEmailService implements RequestHandler<SQSEvent, Void> {
 
   private static final ObjectMapper mapper = new ObjectMapper();
   private static final IMailService mailService;
@@ -23,7 +24,8 @@ public class HandlerWaypointEmailService implements RequestHandler<SQSEvent, Voi
   static {
     mailService = BaseMailService.setupProcessorMailChain(
         new OnboardingMailService(),
-        new PasswordResetMailService()
+        new PasswordResetMailService(),
+        new DBBackupMailService()
     );
   }
 
